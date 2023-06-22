@@ -1,0 +1,111 @@
+Delivered-To: 1020519@gmail.com
+Received: by 2002:a05:6a10:8370:b0:4c5:89e9:1044 with SMTP id o16csp4913957pxf;
+        Wed, 21 Jun 2023 23:54:36 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ4CyGSEobIU2bDtnoSv8GCdNL3DeH3WKXAXia1zJzZQHgD+y55En/IWworz8pkQLurej1GK
+X-Received: by 2002:a05:6a00:2e8d:b0:644:d775:60bb with SMTP id fd13-20020a056a002e8d00b00644d77560bbmr15805203pfb.20.1687416875960;
+        Wed, 21 Jun 2023 23:54:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1687416875; cv=none;
+        d=google.com; s=arc-20160816;
+        b=W0wtHDFV1i71jjrywF8CYqN8J4XSphG28FtQQe1z3r758sXJTxSKGcDfhyZNIsvoLf
+         4ROYM/YJStskrcHlEXN9ULv7unen2NJcbjK9sjWxI15agI3xasGpRqJ9vvDMg0lIqwRO
+         nBaw9dFymxpJLFGG3hrIZ1G9hiuS0LKrwcNCN61RFI3c96COPnTdRwkyDMnmFoJjcu5e
+         LlXJoGuV4Y/IvwrpktPrGwZsLD6O143bzZpZnv/lJ81x+aa9NluppVqvYigqJwhI+8y+
+         h6YfhsSxD4tuCIuv07GkKN98nQjzfnI6mKORhd9cetvUmkWpdKtQChz8vICJ5E8IwYkR
+         o6ig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=reporting-meta:reply-to:message-id:subject:from:to:mime-version
+         :date:date-warning:dkim-signature:dkim-signature;
+        bh=2BYyr0CTQfZmA2/JU5OxnWHiNufpYUUuAxAtLapaetU=;
+        b=YJEN/3zCjBNC+W0s5Cb0jvFYQdHQLnw1nn5ZDNmnxT/GGESDkDHRdr01bgcUmbA7Ul
+         LnLgZG5O4saKT8/KywdufS4LVslyKoBzdpm/a7O9t7EOtWiD+CVYJP+oD6yTr49VHlqv
+         lB6ES58O0Gb0Uy19xcD8pyBoEHP9y86dfpcZw/GkNR+WAi2Egzj3TPGNQKuQywvl0A5N
+         LdbV0/q2bPkX+WQ7EHyAQI4CmHGNIikszmrwJVZZLPL2FoALriSjYEz03s0nCN0Q+0OR
+         MorBb8m5uVWcT8x6hnMtfXeEtF8ldhLZXUdyIV9KtCk2e3PocehqpWE4wZZvVmqbWRD2
+         bu5Q==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@ociapp-notifications.oracle.com header.s=ee-prodapp-phx-202109 header.b=hhGqAMgL;
+       dkim=pass header.i=@phx1.rp.oracleemaildelivery.com header.s=prod-phx-20191217 header.b=UyyRpZcl;
+       spf=pass (google.com: domain of bounces+1020519=gmail.com@phx1.rp.oracleemaildelivery.com designates 192.29.103.230 as permitted sender) smtp.mailfrom="bounces+1020519=gmail.com@phx1.rp.oracleemaildelivery.com";
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oracle.com
+Return-Path: <bounces+1020519=gmail.com@phx1.rp.oracleemaildelivery.com>
+Received: from aib29ajc230.phx1.oracleemaildelivery.com (aib29ajc230.phx1.oracleemaildelivery.com. [192.29.103.230])
+        by mx.google.com with ESMTPS id y196-20020a6264cd000000b00668718e54c6si5697538pfb.202.2023.06.21.23.54.35
+        for <1020519@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Jun 2023 23:54:35 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounces+1020519=gmail.com@phx1.rp.oracleemaildelivery.com designates 192.29.103.230 as permitted sender) client-ip=192.29.103.230;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@ociapp-notifications.oracle.com header.s=ee-prodapp-phx-202109 header.b=hhGqAMgL;
+       dkim=pass header.i=@phx1.rp.oracleemaildelivery.com header.s=prod-phx-20191217 header.b=UyyRpZcl;
+       spf=pass (google.com: domain of bounces+1020519=gmail.com@phx1.rp.oracleemaildelivery.com designates 192.29.103.230 as permitted sender) smtp.mailfrom="bounces+1020519=gmail.com@phx1.rp.oracleemaildelivery.com";
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oracle.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=ee-prodapp-phx-202109;
+ d=ociapp-notifications.oracle.com;
+ h=Date:To:From:Subject:Message-Id:MIME-Version:Sender;
+ bh=2BYyr0CTQfZmA2/JU5OxnWHiNufpYUUuAxAtLapaetU=;
+ b=hhGqAMgLAKUP/RKF8QSZRxNw+9T34gN4LucIwbyRa7UXnEDGYF1tE+DIZTlgWy/WOJFISsUfql4A
+   ONRBOYX01xSalBa++rAkMPIYJ/ED8pb7DtI9vvoG7WdKQl4ATPQe8eGoh3iG0CJ1VUgf4UfHgFHn
+   g8DAUFDJOwZawC02+vkkD87JVB3P1c8yrHT1Xift40nXlTc2SWFaNhwX61ZszECbK41M2pjViQ6F
+   LueiNbYJ/iS61FVT1C0MTbjn1mg7clI0iF7YwCeWEC//AV9KEG5M5KM8PRngA9v/2fk6bB0rfYKF
+   Eq1+N33M4qRBknKVujMqDE0wNofOXThmq5vOPA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=prod-phx-20191217;
+ d=phx1.rp.oracleemaildelivery.com;
+ h=Date:To:From:Subject:Message-Id:MIME-Version:Sender;
+ bh=2BYyr0CTQfZmA2/JU5OxnWHiNufpYUUuAxAtLapaetU=;
+ b=UyyRpZcl1wpvvIsOQ4A5RyUZygwbrUVw/9IBzLzA1QqujGFNYQQoh7aD5n5N7X/aLv58eONWcRSx
+   pktG+pfvQp2kDZaHmAJKvTrUlV5J7XuSHQoVCd8aY6wsGn/GA9YteCJ7sivpO19BVRBafaK+z0Yj
+   Ma9YhVMMGE6vRjJQxhdoJXIz6URKTrzBrbBMxua64Yc9CbKuU7GvMdFgSNV3ClNipaII2q9iAg3P
+   PfChccqXbHWNiFjM4ZcoAbrY80i62bRTe31hSL9Dv/qhZNfVE8oUDYBhBp2gFeKmOqu01oQh7hP2
+   qvII/GqDc1j10gZwkOwRbA+5v0y9Rvblv33ZeA==
+Received: by omta-ad1-fd1-102-us-phoenix-1.omtaad1.vcndpphx.oraclevcn.com
+ (Oracle Communications Messaging Server 8.1.0.1.20230523 64bit (built May 23
+ 2023))
+ with ESMTPS id <0RWN00ECO76ZHD40@omta-ad1-fd1-102-us-phoenix-1.omtaad1.vcndpphx.oraclevcn.com> for
+ 1020519@gmail.com; Thu, 22 Jun 2023 06:54:35 +0000 (GMT)
+Date-warning: Date header was inserted by
+ rmta-ad1-fd2-102-us-phoenix-1.rmtaad1.vcndpphx.oraclevcn.com
+Date: Thu, 22 Jun 2023 06:54:35 +0000 (GMT)
+MIME-version: 1.0
+To: 1020519@gmail.com
+From: apexext-noreply@ociapp-notifications.oracle.com
+Subject: Change request approved
+Message-id: <FEB35B6D0124A9A2E053ED3F72642C46@apex.oracle.com>
+Reply-to:
+Content-type: multipart/alternative;
+ boundary="--=:DCD4FCBFB47FC845022C8FEAE215009C2CEAA8660F2876395CF1F91A2CF1811B:"
+Reporting-Meta:
+ AAF+QTD+uSa/ONMCskAWwny0GtD+YngSUvex5IO4G8SH8HsQW8PxObjctHmFSN/J
+ xVOESTn2tQqW7NGA9yxIz2JzusbwgN72eNX7up6+H1ml7jzfdlkG7BnTId6bhJmq
+ 7NSS61lB0sJRBrYcq7UXdkakEzUOJM3skanv5kKjV5HYPp6A4W3hpHiS5U5T/nFf
+ Q5fMc1+pjeqXYlBQ22iQ0smFKdu/yaNwR22ZX1uT5lK7YXfBdAOJOeO2Rd8c/A51
+ hbpEmj9lV+VviCeDAzT2CsyFg9EL8YrptQamABxTcZ9zKVW2qxQcDyhorqKI7xoL
+ SzNFEqyqi3WRAyOGZaJ0R2lIIb9CjZuLWUrZ2GQEQ5b3E8gDXFVEA8524FH5le0D
+ M8e3rT+v51/9lIcZpL6ocyz9hi4eJXVjt5X8YukLV1jJSN5BWDvOL+Uuu8DmPC2E
+ O1OU7z64lUs0F5UpvI/yqPi6sP8kNP3Lnp3nWwMw8KztWJyUjpo3M8F4wfxx9+1U
+ 8BIOT1stnuCj5rsX+rt/BN+kHwnZP7C57n5TYOnFoLs6rtLM5+KBMFzj9Agig5wa
+ f3dMynq6Qj4dxc0piQ==
+
+This message generated by Oracle APEX.
+----=:DCD4FCBFB47FC845022C8FEAE215009C2CEAA8660F2876395CF1F91A2CF1811B:
+Content-Type: text/plain; charset=utf-8
+
+
+Your request for an additional 100 megabytes of storage in workspace ORA_DTC has been approved.
+
+
+
+https://apex.oracle.com/pls/apex/
+
+----=:DCD4FCBFB47FC845022C8FEAE215009C2CEAA8660F2876395CF1F91A2CF1811B:
+Content-Type: text/html; charset=utf-8
+
+<html><head></head><body style="font-family:Tahoma,Arial,Helvetica,Geneva,sans-serif;font-size:10pt;color:#000000;"><img src="https://apex.oracle.com/i/email/img/oracle-o-apex.png" alt="Oracle APEX"><br /><br /><br />
+Your request for an additional 100 megabytes of storage in workspace ORA_DTC has been approved.<br />
+<br />
+<br />
+<br />
+<a href="https://apex.oracle.com/pls/apex/">https://apex.oracle.com/pls/apex/</a><br />
+<br /> <br /></body></html>
+----=:DCD4FCBFB47FC845022C8FEAE215009C2CEAA8660F2876395CF1F91A2CF1811B:--
+
+
