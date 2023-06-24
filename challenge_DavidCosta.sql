@@ -310,6 +310,6 @@ END;
 --RESTful Data Service 
 --
 -- ABLE TO FINISH BEFORE FEEDBACK
--- JAR inside EXEC_STOCK_LOC_DTC.zip (requires the "lib" forder due to a JSON library)
+-- JAR inside EXEC_STOCK_LOC_DTC.zip (requires the "lib" folder due to a JSON library)
 -- Files in output.zip
 -- JAVA project in STOCK_LOC_DTC.zip
