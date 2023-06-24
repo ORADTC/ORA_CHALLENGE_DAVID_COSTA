@@ -1,6 +1,6 @@
 -- # Challenge DAVID COSTA
 -- DISCLAIMER: I had to decrease by 87.5% the amount of records to insert due to user quota issues
---             ORA-01536 avoidance. It was made a request via Oracle Apex to increase storage space.
+--             ORA-01536 avoidance: It was made a request via Oracle Apex to increase storage space.
 -- select bytes,max_bytes, max_bytes-bytes dif_free from user_ts_quotas;
 -- COMMITS IN 'my' APEX ARE AUTOMATIC
 
@@ -75,11 +75,11 @@ CREATE INDEX item_loc_soh_dept_idx ON item_loc_soh(dept)
 --2) Easier to write and more suitable for limited quota space
 ALTER TABLE item MODIFY
     PARTITION BY HASH(dept)
-    PARTITIONS 5
+    PARTITIONS 100
 /
 ALTER TABLE item_loc_soh MODIFY
     PARTITION BY HASH(loc)
-    PARTITIONS 7
+    PARTITIONS 125
 /
 
 --3) The idea here is to limit the free space available for updates, so less suspicious to row contention
@@ -128,13 +128,13 @@ CREATE TABLE item_loc_soh_hist AS SELECT * FROM item_loc_soh WHERE 1=0
 /
 ALTER TABLE item_loc_soh_hist ADD stock_val number(30,4) not null
 /
-CREATE OR REPLACE PACKAGE P_HIST
+CREATE OR REPLACE PACKAGE p_hist
 IS
    PROCEDURE ins_hist(p_loc_ini IN loc.LOC%TYPE
                      ,p_loc_fin IN loc.LOC%TYPE DEFAULT NULL);
 END;
 /
-CREATE OR REPLACE PACKAGE BODY P_HIST
+CREATE OR REPLACE PACKAGE BODY p_hist
 IS
   PROCEDURE ins_hist(p_loc_ini IN loc.LOC%TYPE
                     ,p_loc_fin IN loc.LOC%TYPE DEFAULT NULL)
@@ -166,7 +166,7 @@ IS
 END;
 /
 BEGIN
-    P_HIST.ins_hist(108);
+    p_hist.ins_hist(108);
 END;
 /
 
@@ -300,13 +300,16 @@ END;
 -- with a similar way like the one on 9. 
 
 -- 12)
+-- 
+-- AT DELIVERY DAY
 -- NOT Finished due to lack of time and suitable tools
 -- Components MISSING:
 --                     - program to consume the JSON RestService
 --                     - export to CSV file with the appropriate multi-threading method
 --SERVER SIDE Done in Apex
 --RESTful Data Service 
---https://apex.oracle.com/pls/apex/ora_dtc/hr/item_loc_dtc/:p_loc
-
---https://apex.oracle.com/pls/apex/ora_dtc/hr/item_loc_dtc/175
--- Project attempt in ORA_DTC.zip file
+--
+-- ABLE TO FINISH BEFORE FEEDBACK
+-- JAR iniside EXEC_STOCK_LOC_DTC.zip (requires the "lib" forder due to a JSON library)
+-- Files in output.zip
+-- JAVA project in STOCK_LOC_DTC.zip
